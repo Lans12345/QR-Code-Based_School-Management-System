@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "682629210366",
+    "project_id": "qrcode-school-management",
+    "storage_bucket": "qrcode-school-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682629210366:android:78113a6e34074d407985af",
+        "android_client_info": {
+          "package_name": "com.example.qr_school_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682629210366-8oeqmo48lrd4jd610gc6hmta2odkpd2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7u1aiWC5ESvRIEhsoPZs64X7sLpm3mZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682629210366-8oeqmo48lrd4jd610gc6hmta2odkpd2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
