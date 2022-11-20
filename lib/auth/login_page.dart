@@ -279,28 +279,12 @@ class _LogInPageState extends State<LogInPage> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      hasLoaded == true
-                                          ? CircleAvatar(
-                                              maxRadius: 50,
-                                              minRadius: 50,
-                                              backgroundImage:
-                                                  NetworkImage(imageURL),
-                                            )
-                                          : GestureDetector(
-                                              onTap: () {
-                                                uploadPicture('gallery');
-                                              },
-                                              child: const CircleAvatar(
-                                                child: Icon(
-                                                  Icons.camera,
-                                                  color: Colors.black,
-                                                ),
-                                                maxRadius: 50,
-                                                minRadius: 50,
-                                                backgroundImage: AssetImage(
-                                                    'assets/images/profile.png'),
-                                              ),
-                                            ),
+                                      const CircleAvatar(
+                                        maxRadius: 50,
+                                        minRadius: 50,
+                                        backgroundImage: AssetImage(
+                                            'assets/images/profile.png'),
+                                      ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             50, 10, 50, 10),

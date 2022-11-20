@@ -42,6 +42,9 @@ dependencies:
   intl: ^0.17.0
   firebase_auth: ^1.0.0
   firebase_core_platform_interface: 4.5.1
+  qr_code_scanner:
+  flutter_barcode_scanner:
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
