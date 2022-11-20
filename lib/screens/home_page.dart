@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:qr_school_management/screens/add_section_page.dart';
+import 'package:qr_school_management/screens/result_page.dart';
 import 'package:qr_school_management/screens/sections_page.dart';
 import 'package:qr_school_management/utils/colors.dart';
 import 'package:qr_school_management/widgets/home_container.dart';
 import 'package:qr_school_management/widgets/text_bold.dart';
 import 'package:get_storage/get_storage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final box = GetStorage();
+
+  String qrCode = 'Unknown';
+
+  Future<void> scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.QR,
+      );
+
+      if (!mounted) return;
+
+      setState(() {
+        this.qrCode = qrCode;
+      });
+      print(qrCode);
+
+      box.write('result', qrCode);
+
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => ResultPage()));
+    } on PlatformException {
+      qrCode = 'Failed to get platform version.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +66,9 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  scanQRCode();
+                                },
                                 icon: const Icon(
                                   Icons.qr_code_scanner_rounded,
                                   color: Colors.white,

@@ -1,27 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_school_management/screens/home_page.dart';
 import 'package:qr_school_management/widgets/button_widget.dart';
 import 'package:qr_school_management/widgets/text_bold.dart';
 import 'package:qr_school_management/widgets/text_regular.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
+    final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
+        .collection('Subjects')
+        .doc(box.read('result'))
+        .snapshots();
     return Scaffold(
-      // appBar: AppBarWidget('CpE - 3B'),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: StreamBuilder<Object>(
-              stream: null,
+              stream: userData,
               builder: (context, snapshot) {
+                dynamic data = snapshot.data;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextBold(
-                        text: 'Class Schedule',
+                        text: data['year'] + ' year',
                         fontSize: 28,
                         color: Colors.black),
                     const SizedBox(
@@ -56,11 +62,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub1'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub1'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -77,11 +83,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub2'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub2'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -98,11 +104,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub3'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub3'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -119,11 +125,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub4'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub4'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -140,11 +146,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub5'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub5'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -161,11 +167,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub6'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub6'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -182,11 +188,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub7'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub7'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -203,11 +209,11 @@ class ResultPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextBold(
-                                text: 'Name of Subject',
+                                text: data['sub8'],
                                 fontSize: 14,
                                 color: Colors.black),
                             TextRegular(
-                                text: 'Time Schedule',
+                                text: data['timeSub8'],
                                 fontSize: 12,
                                 color: Colors.black),
                           ],
@@ -224,7 +230,7 @@ class ResultPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextBold(
-                                text: 'Mark Nalupa',
+                                text: data['adviser'],
                                 fontSize: 18,
                                 color: Colors.black),
                             TextRegular(
@@ -237,7 +243,7 @@ class ResultPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextBold(
-                                text: 'CpE - 3B',
+                                text: data['section'],
                                 fontSize: 18,
                                 color: Colors.black),
                             TextRegular(
