@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_school_management/utils/colors.dart';
 import 'package:qr_school_management/widgets/app_bar.dart';
 import 'package:qr_school_management/widgets/text_bold.dart';
@@ -24,28 +26,64 @@ class SectionPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            StreamBuilder<Object>(
-                stream: null,
-                builder: (context, snapshot) {
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('Subjects')
+                    .where('year', isEqualTo: box.read('year'))
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    print(snapshot.error);
+                    return const Center(child: Text('Error'));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    print('waiting');
+                    return const Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Colors.black,
+                      )),
+                    );
+                  }
+
+                  final data = snapshot.requireData;
                   return Expanded(
                     child: SizedBox(
                       child: ListView.builder(
-                          itemCount: 20,
+                          itemCount: snapshot.data?.size ?? 0,
                           itemBuilder: ((context, index) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                               child: ListTile(
                                 tileColor: secondaryColor,
                                 title: TextBold(
-                                    text: 'BSCPE - 3B',
+                                    text: data.docs[index]['section'],
                                     fontSize: 18,
                                     color: Colors.black),
                                 subtitle: TextRegular(
-                                    text: 'Advisier: Lance Olana',
+                                    text:
+                                        'Advisier: ${data.docs[index]['adviser']}',
                                     fontSize: 14,
-                                    color: Colors.white),
+                                    color: Colors.black),
                                 trailing: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                            child: SizedBox(
+                                              height: 300,
+                                              child: Center(
+                                                child: QrImage(
+                                                    data: data.docs[index]
+                                                        ['id']),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  },
                                   icon: const Icon(
                                     Icons.qr_code_sharp,
                                     color: Colors.black,
