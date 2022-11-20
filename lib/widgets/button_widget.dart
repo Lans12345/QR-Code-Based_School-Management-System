@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_school_management/utils/colors.dart';
 
 class ButtonWidget extends StatelessWidget {
   final VoidCallback onPressed;
@@ -17,7 +16,7 @@ class ButtonWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
-      color: primaryColor,
+      color: Colors.teal,
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
@@ -25,9 +24,9 @@ class ButtonWidget extends StatelessWidget {
           text,
           style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 18,
               color: Colors.white,
-              fontFamily: 'QRegular'),
+              fontFamily: 'QBold'),
         ),
       ),
     );
